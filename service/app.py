@@ -4,6 +4,7 @@ from datetime import datetime
 from functools import lru_cache
 
 import joblib
+import numpy as np
 import pandas as pd
 from fastapi import Body  # type: ignore # noqa: E402
 from fastapi import Depends
@@ -94,7 +95,7 @@ async def make_prediction(
 ):
     logger.log(inputs)
     X = pd.DataFrame([row.dict() for row in inputs])
-    prediction = estimator.predict(X).tolist()
+    prediction = estimator.predict(X).astype(np.uint32).tolist()
     return prediction
 
 
