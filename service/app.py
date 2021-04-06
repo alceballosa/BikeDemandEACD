@@ -74,13 +74,15 @@ def load_estimator():
 
 
 class Logger:
-    def __init__(self, file: t.TextIO = sys.stdout):
-        self.file = file
+    def __init__(self, filepath="log.log"):
+        self.filepath = filepath
 
-    def log(self, inputs: t.List[ModelInput]):
-        for row in inputs:
-            record = {"datetime": datetime.now(), "input": row.dict()}
-            print(record, file=self.file)
+    def log(self, inputs: t.List[ModelInput], predictions):
+        file = open(self.filepath, "a")
+        for row, pred in zip(inputs, predictions):
+            record = {"datetime": datetime.now(), "input": row.dict(), "pred": pred}
+            print(record, file=file)
+        file.close()
 
 
 def get_logger():
@@ -93,9 +95,10 @@ async def make_prediction(
     estimator=Depends(load_estimator),
     logger=Depends(get_logger),
 ):
-    logger.log(inputs)
+
     X = pd.DataFrame([row.dict() for row in inputs])
     prediction = estimator.predict(X).astype(np.uint32).tolist()
+    logger.log(inputs, prediction)
     return prediction
 
 
