@@ -1,0 +1,6 @@
+regressor:
+  max_depth: 10
+  n_estimators: 100
+  objective: count:poisson
+  reg_alpha: 0
+  reg_lambda: 0

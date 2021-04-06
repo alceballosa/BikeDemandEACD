@@ -1,0 +1,35 @@
+hyperparams:
+  selector: {}
+  column_transformer: {}
+  regressor:
+    n_estimators: 100
+    max_depth: 10
+    reg_alpha: 0.5
+    reg_lambda: 0.5
+    objective: count:poisson
+
+data:
+  filepath: ./timeseries.csv
+  years_train: [2011]
+
+metrics:
+  - name: bike demand error
+    params: { understock_price: 0.7, overstock_price: 0.3 }
+
+search:
+  jobs: 6
+  grid:
+    selector: {}
+    column_transformer: {}
+    regressor:
+      n_estimators: [25, 50, 100]
+      max_depth: [10, 20, 30]
+      reg_alpha: [0, 0.5, 1]
+      reg_lambda: [0, 0.5, 1]
+      objective: [count:poisson]
+
+export:
+  output_dir: ./models
+
+reports:
+  dir: ./reports

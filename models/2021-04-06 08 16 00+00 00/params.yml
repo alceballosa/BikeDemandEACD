@@ -1,0 +1,49 @@
+column_transformer:
+  categorical_features:
+  - season
+  - mnth
+  - hr
+  - holiday
+  - weekday
+  - workingday
+  - weathersit
+  - holiday_7_days
+  - workingday_7_days
+regressor:
+  max_depth: 10
+  n_estimators: 100
+  objective: count:poisson
+  reg_alpha: 0.5
+  reg_lambda: 0.5
+selector:
+  feature_columns:
+  - season
+  - mnth
+  - hr
+  - holiday
+  - weekday
+  - workingday
+  - weathersit
+  - temp
+  - atemp
+  - hum
+  - windspeed
+  - cnt_1_hours
+  - cnt_2_hours
+  - cnt_3_hours
+  - cnt_7_days
+  - cnt_last_hour_diff
+  - holiday_7_days
+  - workingday_7_days
+  - temp_1_hours
+  - temp_2_hours
+  - temp_3_hours
+  - atemp_1_hours
+  - atemp_2_hours
+  - atemp_3_hours
+  - hum_1_hours
+  - hum_2_hours
+  - hum_3_hours
+  - windspeed_1_hours
+  - windspeed_2_hours
+  - windspeed_3_hours
